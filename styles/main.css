@@ -22,7 +22,7 @@ body {
   z-index: 1;
 }
 
-.nabbar .logo {
+.navbar .logo {
   position: relative;
   left: 2rem;
   cursor: pointer;
@@ -38,7 +38,7 @@ body {
   text-decoration: none;
 }
 
-.link-container .navbar-link {
+.links-container .navbar-link {
   display: table-cell;
   position: relative;
   height: 100%;
@@ -61,14 +61,9 @@ body {
 .links-container .navbar-link:active {
   background-color: white;
 }
-
 .container {
   margin: 0 auto;
   max-width: 64rem;
-}
-
-.container.narrow {
-  max-width: 56rem;
 }
 
 @media (min-width: 640px) {
@@ -86,16 +81,7 @@ body {
   .column.flow-opposite {float: right;}
 }
 
+
 @media (min-width: 1024px){
   html {font-size: 120%;}
-}
-
-.clearfix::before,
-.clearfix::after {
-  content: " ";
-  display: : table;
-}
-
-.clearfix::after{
-  clear: both;
 }
