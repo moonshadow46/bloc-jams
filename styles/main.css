@@ -22,7 +22,7 @@ body {
   z-index: 1;
 }
 
-.nabbar .logo {
+.navbar .logo {
   position: relative;
   left: 2rem;
   cursor: pointer;
@@ -38,7 +38,7 @@ body {
   text-decoration: none;
 }
 
-.link-container .navbar-link {
+.links-container .navbar-link {
   display: table-cell;
   position: relative;
   height: 100%;
