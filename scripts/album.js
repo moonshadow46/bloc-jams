@@ -28,6 +28,21 @@ var albumMarconi = {
   ]
 };
 
+var albumClayderman = {
+  title: 'Clayderman Selection',
+  artist: 'Richard Clayderman',
+  label: 'Deluxe',
+  year: '1990',
+  albumArtUrl: 'assets/images/album_covers/21.png',
+  songs:[
+    { title: 'Mariage damour', duration: '4:05'},
+    { title: 'Hungarian Sonata', duration: '3:16'},
+    { title: 'Gemini', duration: '3:12'},
+    { title: 'Moonlight Sonata', duration: '3:28'},
+    { title: 'Black Bird Flies', duration: '2:17'},
+  ]
+};
+
 var createSongRow = function(songNumber, songName, songLength){
   var template =
     '<tr class="album-view-song-item">'
@@ -40,13 +55,13 @@ var createSongRow = function(songNumber, songName, songLength){
   return template;
 };
 
-var setCurrentAlbum = function(album){
-  var albumTitle = document.getElementsByClassName<'album-view-title')[0];
-  var albumArtist = document.getElementsByClassName<'album-view-artist')[0];
-  var albumReleaseInfo = document.getElementsByClassName<'album-view-release-info')[0];
-  var albumImage = document.getElementsByClassName<'album-cover-art')[0];
-  var albumSongList = document.getElementsByClassName<'album-view-song-list')[0];
+var albumTitle = document.getElementsByClassName('album-view-title')[0];
+var albumArtist = document.getElementsByClassName('album-view-artist')[0];
+var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
+var albumImage = document.getElementsByClassName('album-cover-art')[0];
+var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
 
+var setCurrentAlbum = function(album){
   albumTitle.firstChild.nodeValue = album.title;
   albumArtist.firstChild.nodeValue = album.artist;
   albumReleaseInfo.firstChild.nodeValue = album.year + ' ' + album.label;
@@ -54,11 +69,21 @@ var setCurrentAlbum = function(album){
 
   albumSongList.innerHTML = '';
 
-  for ( var i = 0; i < album.song.length; i++){
+  for ( var i = 0; i < album.songs.length; i++){
     albumSongList.innerHTML += createSongRow(i + 1, album.songs[i].title, album.songs[i].duration);
   }
 };
 
 window.onload = function(){
   setCurrentAlbum(albumPicasso);
+
+  var albums = [albumPicasso, albumMarconi, albumClayderman];
+  var index = 1;
+  albumImage.addEventListener("click", function(event){
+    setCurrentAlbum(albums[index]);
+    index++;
+    if (index == albums.length){
+      index = 0;
+    }
+  });
 };
