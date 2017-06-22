@@ -125,7 +125,7 @@ window.onload = function(){
       event.target.parentElement.querySelector('.song-item-number').innerHTML = playButtonTemplate;
       var songItem = getSongItem(event.target);
 
-      if(songItem.getAttribute('data-song-number') !== currentlyPlayingSong){
+      if (songItem.getAttribute('data-song-number') !== currentlyPlayingSong) {
         songItem.innerHTML = playButtonTemplate;
       }
     }
