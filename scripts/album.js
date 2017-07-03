@@ -103,7 +103,6 @@ var setCurrentAlbum = function(album){
 var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
 var pauseButtonTemplate = '<a class="album-song-button"><span class="ion-pause"></span></a>';
 
-// store state of playing songs
 var currentlyPlayingSong = null;
 
 $(document).ready(function(){
