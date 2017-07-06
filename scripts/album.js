@@ -33,7 +33,7 @@ var createSongRow = function(songNumber, songName, songLength){
     var songNumberCell = $(this).find('.song-item-number');
     var songNumber = songNumberCell.attr('data-song-number');
 
-    if(songNumber !== currentlyplayingsongNumber){
+    if(songNumber !== currentlyPlayingSongNumber){
       songNumberCell.html(playButtonTemplate);
     }
   };
