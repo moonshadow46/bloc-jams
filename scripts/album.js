@@ -5,9 +5,7 @@ var setSong = function(songNumber) {
 
   currentlyPlayingSongNumber = parseInt(songNumber);
   currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
-  // #1
   currentSoundFile = new buzz.sound(currentSongFromAlbum.audioUrl, {
-    // #2
     formats: ['mp3'],
     preload: true
   });
@@ -26,6 +24,7 @@ var getSongNumberCell = function(number) {
 };
 
 var createSongRow = function(songNumber, songName, songLength){
+  console.log(songLength);
   var template =
     '<tr class="album-view-song-item">'
   + ' <td class="song-item-number" data-song-number ="' + songNumber + '">' + songNumber + '</td>'
@@ -81,9 +80,7 @@ var createSongRow = function(songNumber, songName, songLength){
   };
 
   $row.find('.song-item-number').click(clickHandler);
-  // #2
   $row.hover(onHover, offHover);
-  // #3
   return $row;
 };
 
@@ -103,6 +100,7 @@ var setCurrentAlbum = function(album){
   $albumSongList.empty();
 
   for ( var i = 0; i < album.songs.length; i++){
+    // console.log(album.songs[i].duration);
     var $newRow = createSongRow(i + 1, album.songs[i].title, album.songs[i].duration);
     $albumSongList.append($newRow);
   }
@@ -175,9 +173,14 @@ var setTotalTimePlayerBar = function(totalTIme) {
 };
 
 var filterTimeCode = function(seconds) {
+  // console.log(seconds);
+  // var pieces = seconds.split(":");
   var minutes = Math.floor(seconds / 60);
+  // console.log(minutes);
   seconds = Math.floor(seconds % 60);
+  // console.log(seconds);
   seconds = seconds < 10 ? "0" + seconds : seconds;
+  // console.log(seconds);
   return minutes + ":" + seconds;
 };
 
@@ -196,9 +199,10 @@ var $previousButton = $('.main-controls .previous');
 var $nextButton = $('.main-controls .next');
 
 $(document).ready(function(){
+  console.log(albumPicasso);
   setCurrentAlbum(albumPicasso);
   $previousButton.click(previousSong);
   $nextButton.click(nextSong);
 });
 
-console.log("songNumber type is " + typeof songNumber + "\n and currentlyPlayingSongNumber type is " + typeof currentlyPlayingSongNumber);
+// console.log("songNumber type is " + typeof songNumber + "\n and currentlyPlayingSongNumber type is " + typeof currentlyPlayingSongNumber);
