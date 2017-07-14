@@ -6,7 +6,7 @@ var setSong = function(songNumber) {
   currentlyPlayingSongNumber = parseInt(songNumber);
   currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
   currentSoundFile = new buzz.sound(currentSongFromAlbum.audioUrl, {
-    formats: ['mp3'],
+    formats: [ 'mp3' ],
     preload: true
   });
 
@@ -41,7 +41,6 @@ var createSongRow = function(songNumber, songName, songLength){
   var $row = $(template);
 
   var clickHandler = function() {
-
     var songNumber = parseInt($(this).attr('data-song-number'));
 
     if (currentlyPlayingSongNumber !== null) {
@@ -76,7 +75,7 @@ var createSongRow = function(songNumber, songName, songLength){
 
   var onHover = function(event){
     var songNumberCell = $(this).find('.song-item-number');
-    var songNumber = songNumberCell.attr('data-song-number');
+    var songNumber = parseInt(songNumberCell.attr('data-song-number'));
 
     if(songNumber !== currentlyPlayingSongNumber){
       songNumberCell.html(playButtonTemplate);
@@ -84,7 +83,7 @@ var createSongRow = function(songNumber, songName, songLength){
   };
   var offHover = function(event){
     var songNumberCell = $(this).find('.song-item-number');
-    var songNumber = songNumberCell.attr('data-song-number');
+    var songNumber = parseInt(songNumberCell.attr('data-song-number'));
 
     if (songNumber !== currentlyPlayingSongNumber) {
       songNumberCell.html(songNumber);
@@ -93,6 +92,7 @@ var createSongRow = function(songNumber, songName, songLength){
 
   $row.find('.song-item-number').click(clickHandler);
   $row.hover(onHover, offHover);
+
   return $row;
 };
 
@@ -157,12 +157,13 @@ var setupSeekBars = function() {
 
   $seekBars.find('.thumb').mousedown(function(event) {
     var $seekBar = $(this).parent();
+
     $(document).bind('mousemove.thumb', function(event){
       var offsetX = event.pageX - $seekBar.offset().left;
       var barWidth = $seekBar.width();
       var seekBarFillRatio = offsetX / barWidth;
 
-      if ($seekBar.parent().attr('class') == 'seek-control') {
+      if ($seekBar.parent().attr('class') == 'seek-control'){
         seek(seekBarFillRatio * currentSoundFile.getDuration());
       } else {
         setVolume(seekBarFillRatio);
@@ -170,6 +171,7 @@ var setupSeekBars = function() {
 
       updateSeekPercentage($seekBar, seekBarFillRatio);
     });
+
     $(document).bind('mouseup.thumb', function() {
       $(document).unbind('mousemove.thumb');
       $(document).unbind('mouseup.thumb');
@@ -179,28 +181,6 @@ var setupSeekBars = function() {
 
 var trackIndex = function(album, song) {
   return album.songs.indexOf(song);
-};
-
-var nextSong = function() {
-  var currentSongIndex = trackIndex(currentAlbum, currentSongFromAlbum);
-  currentSongIndex++;
-
-  if (currentSongIndex >= currentAlbum.songs.length) {
-    currentSongIndex = 0;
-  }
-
-  var lastSongNumber = currentlyPlayingSongNumber;
-
-  setSong(currentSongIndex + 1);
-  currentSoundFile.play();
-
-  updatePlayerBarSong();
-
-  var $nextSongNumberCell = getSongNumberCell(currentlyPlayingSongNumber);
-  var $lastSongNumberCell = getSongNumberCell(lastSongNumber);
-
-  $nextSongNumberCell.html(pauseButtonTemplate);
-  $lastSongNumberCell.html(lastSongNumber);
 };
 
 var previousSong = function() {
@@ -224,6 +204,28 @@ var previousSong = function() {
   var $lastSongNumberCell = getSongNumberCell(lastSongNumber);
 
   $previousSongNumberCell.html(pauseButtonTemplate);
+  $lastSongNumberCell.html(lastSongNumber);
+};
+
+var nextSong = function() {
+  var currentSongIndex = trackIndex(currentAlbum, currentSongFromAlbum);
+  currentSongIndex++;
+
+  if (currentSongIndex >= currentAlbum.songs.length) {
+    currentSongIndex = 0;
+  }
+
+  var lastSongNumber = currentlyPlayingSongNumber;
+
+  setSong(currentSongIndex + 1);
+  currentSoundFile.play();
+
+  updatePlayerBarSong();
+
+  var $nextSongNumberCell = getSongNumberCell(currentlyPlayingSongNumber);
+  var $lastSongNumberCell = getSongNumberCell(lastSongNumber);
+
+  $nextSongNumberCell.html(pauseButtonTemplate);
   $lastSongNumberCell.html(lastSongNumber);
 };
 
@@ -255,5 +257,3 @@ $(document).ready(function(){
   $previousButton.click(previousSong);
   $nextButton.click(nextSong);
 });
-
-console.log("songNumber type is " + typeof songNumber + "\n and currentlyPlayingSongNumber type is " + typeof currentlyPlayingSongNumber);

@@ -122,9 +122,15 @@
   -webkit-transition: all 100ms ease-in-out;
       -moz-reanstion: all 100ms ease-in-out;
           transition: width 100ms ease-in-out,
+<<<<<<< HEAD
                       height 100ms ease-in-out,
                       margin-top 100ms ease-in-out,
                       margin-left 100ms ease-in-out;
+=======
+          height 100ms ease-in-out,
+          margin-top 100ms ease-in-out,
+          margin-left 100ms ease-in-out;
+>>>>>>> ckpt19-redo
 }
 
 .seek-bar:hover .thumb {
